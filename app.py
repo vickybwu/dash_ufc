@@ -202,5 +202,4 @@ def display_fight_card(selected_fight):
 
 
 # Run App
-if __name__ == '__main__':
-    app.run_server()
+server = app.server
