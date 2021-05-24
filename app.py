@@ -1,3 +1,4 @@
+import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -5,7 +6,7 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
 
-df = pd.read_csv('/Users/VickyWu/Desktop/datavizufc/ufc-master.csv')
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), "ufc-master.csv"))
 
 app = dash.Dash()
 
