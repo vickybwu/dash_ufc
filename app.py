@@ -3,7 +3,7 @@ import dash_core_components as dcc
 #from dash_core_components.Dropdown import Dropdown
 #from dash_core_components.RadioItems import RadioItems
 import dash_html_components as html
-from dash import dash_table as dt
+import dash_table as dt
 from dash.dependencies import Input, Output
 from numpy.lib.function_base import select
 import plotly.graph_objs as go
