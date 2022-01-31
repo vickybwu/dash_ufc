@@ -14,8 +14,10 @@ import os
 # Data
 #df = pd.read_csv(os.path.join(os.path.dirname(__file__), "ufc-master.csv"))
 df = pd.read_csv('https://raw.githubusercontent.com/vickybwu/dash_ufc/main/ufc-master.csv')
-df.sort_values(by=['date'], inplace=True)
 df['Year'] = [date[-4:] for date in df['date']]
+df['date']= pd.to_datetime(df['date'])
+df.sort_values(by=['date'], inplace=True)
+
 
 
 
@@ -34,7 +36,7 @@ title_fights['Winner'] = winners
 
 # ceate dropdown menu
 for ft in title_fights.iterrows():
-    display_label = str(ft[1][6] + ' ' + ft[1][0] + ' vs ' + ft[1][1])
+    display_label = str(ft[1][6])[:10] + ' ' + ft[1][0] + ' vs ' + ft[1][1]
     backend_label = ft[0] # The index of the selected row
     fight_options.append({'label': display_label, 'value': backend_label})
 
@@ -151,16 +153,15 @@ def line_graph(selected_gender):
     if selected_gender == 'FEMALE':
         colors = px.colors.sequential.Reds
     else:
-        colors = px.colors.sequential.ice  
-    df_by_gender = df[df['gender'] == selected_gender]  
+        colors = px.colors.sequential.ice   
     fig5 = go.Figure()
+    df_by_gender = df[df['gender'] == selected_gender] 
     for i, wc in enumerate(df_by_gender['weight_class'].unique()):
         df2 = df_by_gender[df_by_gender['weight_class'] == wc]
-        R_ev = df2['R_ev'].groupby(df2['Year']).mean()
-        B_ev = df2['B_ev'].groupby(df2['Year']).mean()
+        s = (df2['R_ev']+df2['B_ev']).groupby(df2['Year']).mean()/2
         fig5.add_trace(go.Line(
-            x = df2['Year'].unique(),
-            y = [(R_ev[i]+B_ev[i])/2 for i in range(len(B_ev))],
+            x = s.index,
+            y = s.values,
             marker_color = colors[-(i+1)],
             mode = 'lines+markers',
             opacity = 0.9,
@@ -244,5 +245,7 @@ def display_fight_card(selected_fight):
 
     return figure1, fig2, fig3, fig4
 
+# if __name__ == "__main__":
+#     app.run_server()
 # Run App
 server = app.server
