@@ -2,7 +2,7 @@ This is my second UFC APP. I built the first one in RShiny with ggplot2 and had 
 
 This time I built it in Dash and used Plotly for graphing. I deployed the APP on Heroku.
 
-View the APP here: https://ufcdashboardvickywu.herokuapp.com/
+View the APP here: https://polar-island-38198.herokuapp.com/
 
 
 The App has an Overview section and a Title Bouts section. 
